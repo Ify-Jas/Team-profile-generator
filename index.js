@@ -10,28 +10,13 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
+const employeeDetails = [];
+
 
 
 //Code to gather information about the development team members, and render the HTML file.
-function cyclePrompt(){
-    console.log('----Welcome to the Team Profile Generator----')
-    inquirer.prompt(
-        {
-            type: 'confirm',
-            name: 'start',
-            message: 'Would you like to enter an employee'
 
-        }
-    ).then(data=> {
-        console.log(data.start);
-        if(data.start){
-            return employee();
-        }
-        console.log('Thank you for using the Team Profile Generator');
-    })
-}
-
-function employee(){
+function manager() {
     inquirer.prompt([
         {
             name: 'name',
@@ -47,95 +32,143 @@ function employee(){
             message: 'Enter user email address'
         },
         {
-            type: 'list',
-            name: 'role',
-            message: 'Please select an employee role',
-            choices: ['Engineer', 'Intern', 'Manager']
-        }
-    ]).then(data=> {
-        
-        if(data.role =='Engineer'){
-           engineer();
-
-        }
-        if(data.role =='Intern'){
-            intern();
-            
-
-        }
-        if(data.role =='Manager'){
-            manager();
-            
-
-        } 
-    });
-    console.log(data);
-
-}
-
-function engineer(){
-    inquirer.prompt([
-        {
-            name: 'github',
-            message: 'Enter a Github username'
+            name: 'officeNumber',
+            message: 'Enter the officeNumber'
         },
         {
             type: 'confirm',
             name: 'continue',
-            message: 'Do you wish to enter another employee?'
+            message: 'Do you wish to add another employee?'
+        
         }
     ]).then(data=>{
+        const manager = new Manager(data.name, data.id, data.email, data.officeNumber);
+        employeeDetails.push(manager);
         if(data.continue){
-            employee();
+            cyclePrompt();
+        }else {
+            console.log('Thank you for using the profile generator');
+            createEmployee();
         }
-        console.log('Thank you for using the Team Profile Generator');
-        
     })
-  
 
 }
-function intern(){
+function intern() {
     inquirer.prompt([
+        {
+            name: 'name',
+            message: 'Enter a name'
+
+        },
+        {
+            name: 'id',
+            message: 'Enter the employee Id',
+        },
+        {
+            name: 'email',
+            message: 'Enter user email address'
+        },
         {
             name: 'school',
-            message: 'Enter the name of your school'
+            message: 'Enter name of school'
         },
         {
             type: 'confirm',
             name: 'continue',
-            message: 'Do you wish to enter another employee?'
+            message: 'Do you wish to add another employee?'
+        
         }
     ]).then(data=>{
+        const intern = new Intern(data.name, data.id, data.email, data.school);
+        employeeDetails.push(intern);
         if(data.continue){
-            employee();
+            cyclePrompt();
+        }else {
+            console.log('Thank you for using the profile generator');
+            createEmployee();
+
         }
-        console.log('Thank you for using the Team Profile Generator');
-        
-        
     })
+
 }
-function manager(){
+
+function engineer() {
     inquirer.prompt([
         {
-            name: 'officeNumber',
-            message: 'Enter an office number'
+            name: 'name',
+            message: 'Enter a name'
+
+        },
+        {
+            name: 'id',
+            message: 'Enter the employee Id',
+        },
+        {
+            name: 'email',
+            message: 'Enter user email address'
+        },
+        {
+            name: 'github',
+            message: 'Enter github username'
         },
         {
             type: 'confirm',
             name: 'continue',
-            message: 'Do you wish to enter another employee?'
+            message: 'Do you wish to add another employee?'
+        
         }
+
     ]).then(data=>{
+        const engineer = new Engineer(data.name, data.id, data.email, data.github);
+        employeeDetails.push(engineer);
         if(data.continue){
-            employee();
+            cyclePrompt();
+        }else {
+            console.log('Thank you for using the profile generator');
+            createEmployee();
+
         }
-        console.log('Thank you for using the Team Profile Generator');     
-        
-        
     })
+
 }
+
+function createEmployee(){
+    render(employeeDetails);
+}
+
+
+function cyclePrompt(){
+        console.log('----Welcome to the Team Profile Generator----')
+        inquirer.prompt(
+            {
+                type: 'list',
+                name: 'start',
+                message: 'Choose an employee role to enter',
+                choices: ['Engineer', 'Intern', 'Manager']
+
+            }
+        ).then(data=> {
+            if(data.start == 'Engineer'){
+                return engineer();
+            }
+            if(data.start == 'Intern'){
+                return intern();
+            }
+            if(data.start == 'Manager'){
+                return manager();
+            }
+        })
+    }
 
 function init() {
     cyclePrompt()
 }
 init();
+
+
+module.exports = {
+    manager,
+    intern,
+    engineer
+
+}
