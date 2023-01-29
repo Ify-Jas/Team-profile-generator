@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/Ify-Jas/Team-profile-generator#readme",
   "dependencies": {
-    "inquirer": "^9.1.4"
+    "inquirer": "^8.2.5"
   }
 }

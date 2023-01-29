@@ -22,7 +22,8 @@ function cyclePrompt(){
 
         }
     ).then(data=> {
-        if(data.choice){
+        console.log(data.start);
+        if(data.start){
             return employeeDetails();
         }
         console.log('Thank you for using the Team Profile Generator');
@@ -30,7 +31,7 @@ function cyclePrompt(){
 }
 
 function employeeDetails(){
-    inquirer.prompt(
+    inquirer.prompt([
         {
             name: 'name',
             message: 'What is your name'
@@ -50,14 +51,15 @@ function employeeDetails(){
             message: 'Please select an employee role',
             choices: ['Engineer', 'Intern', 'Manager']
         }
-    ).then(data=> {
-        if(data.role === Engineer){
+    ]).then(employeeData=> {
+        console.log(employeeData.role);
+        if(employeeData.role == ['Engineer']){
            return roleEngineer();
         }
-        if(data.role === Intern){
+        if(employeeData.role == ['Intern']){
             return roleIntern();
         }
-        if(data.role === Manager){
+        if(employeeData.role == ['Manager']){
             return roleManager();
         }
         
@@ -70,7 +72,9 @@ function roleEngineer(){
             name: 'github',
             message: 'Enter your Github username'
         }
-    )
+    ).then(engineerData=>{
+        cyclePrompt()
+    })
 }
 function roleIntern(){
     inquirer.prompt(
@@ -78,7 +82,9 @@ function roleIntern(){
             name: 'school',
             message: 'Enter the name of your school'
         }
-    )
+    ).then(internData=>{
+        cyclePrompt();
+    })
 }
 function roleManager(){
     inquirer.prompt(
@@ -86,7 +92,9 @@ function roleManager(){
             name: 'officeNumber',
             message: 'Enter your office number'
         }
-    )
+    ).then(managerData=>{
+        cyclePrompt();
+    })
 }
 
 function init() {
