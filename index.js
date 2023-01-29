@@ -48,7 +48,8 @@ function manager() {
             cyclePrompt();
         }else {
             console.log('Thank you for using the profile generator');
-            createEmployee();
+            render(employeeDetails);
+            createFile();
         }
     })
 
@@ -85,8 +86,8 @@ function intern() {
             cyclePrompt();
         }else {
             console.log('Thank you for using the profile generator');
-            createEmployee();
-
+            render(employeeDetails);
+            createFile();
         }
     })
 
@@ -125,16 +126,19 @@ function engineer() {
             cyclePrompt();
         }else {
             console.log('Thank you for using the profile generator');
-            createEmployee();
+            render(employeeDetails);
+            createFile();
 
         }
     })
 
 }
 
-function createEmployee(){
-    render(employeeDetails);
+function createFile(){
+    return fs.writeFileSync(outputPath, employeeDetails);
+       
 }
+
 
 
 function cyclePrompt(){
