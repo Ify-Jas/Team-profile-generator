@@ -52,16 +52,16 @@ function employeeDetails(){
             choices: ['Engineer', 'Intern', 'Manager']
         }
     ]).then(employeeData=> {
-        console.log(employeeData.role);
-        if(employeeData.role == ['Engineer']){
-           return roleEngineer();
+        if(['Engineer']){
+           roleEngineer();
         }
-        if(employeeData.role == ['Intern']){
-            return roleIntern();
+        if(['Intern']){
+            roleIntern();
         }
-        if(employeeData.role == ['Manager']){
-            return roleManager();
+        if(['Manager']){
+            roleManager();
         }
+
         
     })
 }
@@ -73,7 +73,7 @@ function roleEngineer(){
             message: 'Enter your Github username'
         }
     ).then(engineerData=>{
-        cyclePrompt()
+        console.log(engineerData)
     })
 }
 function roleIntern(){
@@ -83,7 +83,8 @@ function roleIntern(){
             message: 'Enter the name of your school'
         }
     ).then(internData=>{
-        cyclePrompt();
+        console.log(internData)
+
     })
 }
 function roleManager(){
@@ -93,7 +94,8 @@ function roleManager(){
             message: 'Enter your office number'
         }
     ).then(managerData=>{
-        cyclePrompt();
+        console.log(managerData);
+
     })
 }
 
