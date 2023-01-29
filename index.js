@@ -135,7 +135,7 @@ function engineer() {
 }
 
 function createFile(){
-    return fs.writeFileSync(outputPath, employeeDetails);
+    return fs.writeFileSync(outputPath, render(employeeDetails), 'utf-8');
        
 }
 
