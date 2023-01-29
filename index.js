@@ -34,67 +34,98 @@ function employeeDetails(){
     inquirer.prompt([
         {
             name: 'name',
-            message: 'What is your name'
+            message: 'What is a name'
 
         },
         {
             name: 'id',
-            message: 'Enter your employee Id',
+            message: 'Enter the employee Id',
         },
         {
             name: 'email',
-            message: 'Enter your email address'
+            message: 'Enter user email address'
         },
         {
-            type: 'checkbox',
+            type: 'list',
             name: 'role',
             message: 'Please select an employee role',
             choices: ['Engineer', 'Intern', 'Manager']
         }
     ]).then(employeeData=> {
-        if(['Engineer']){
+        if(employeeData.role =='Engineer'){
            roleEngineer();
-        }
-        if(['Intern']){
-            roleIntern();
-        }
-        if(['Manager']){
-            roleManager();
-        }
 
-        
-    })
+        }
+        if(employeeData.role =='Intern'){
+            roleIntern();
+            
+
+        }
+        if(employeeData.role =='Manager'){
+            roleManager();
+            
+
+        } 
+    });
+
 }
 
 function roleEngineer(){
-    inquirer.prompt(
+    inquirer.prompt([
         {
             name: 'github',
-            message: 'Enter your Github username'
+            message: 'Enter a Github username'
+        },
+        {
+            type: 'confirm',
+            name: 'continue',
+            message: 'Do you wish to enter another employee?'
         }
-    ).then(engineerData=>{
-        console.log(engineerData)
+    ]).then(engineerData=>{
+        if(engineerData.continue){
+            return employeeDetails();
+        }
+        console.log('Thank you for using the Team Profile Generator');
+        
     })
+  
+
 }
 function roleIntern(){
-    inquirer.prompt(
+    inquirer.prompt([
         {
             name: 'school',
             message: 'Enter the name of your school'
+        },
+        {
+            type: 'confirm',
+            name: 'continue',
+            message: 'Do you wish to enter another employee?'
         }
-    ).then(internData=>{
-        console.log(internData)
-
+    ]).then(internData=>{
+        if(internData.continue){
+            return employeeDetails();
+        }
+        console.log('Thank you for using the Team Profile Generator');
+        
     })
 }
 function roleManager(){
-    inquirer.prompt(
+    inquirer.prompt([
         {
             name: 'officeNumber',
-            message: 'Enter your office number'
+            message: 'Enter an office number'
+        },
+        {
+            type: 'confirm',
+            name: 'continue',
+            message: 'Do you wish to enter another employee?'
         }
-    ).then(managerData=>{
-        console.log(managerData);
+    ]).then(managerData=>{
+        if(managerData.continue){
+            return employeeDetails();
+        }
+        console.log('Thank you for using the Team Profile Generator');     
 
     })
 }
