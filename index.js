@@ -11,6 +11,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./src/page-template.js");
 
 
+
 //Code to gather information about the development team members, and render the HTML file.
 function cyclePrompt(){
     console.log('----Welcome to the Team Profile Generator----')
@@ -24,17 +25,17 @@ function cyclePrompt(){
     ).then(data=> {
         console.log(data.start);
         if(data.start){
-            return employeeDetails();
+            return employee();
         }
         console.log('Thank you for using the Team Profile Generator');
     })
 }
 
-function employeeDetails(){
+function employee(){
     inquirer.prompt([
         {
             name: 'name',
-            message: 'What is a name'
+            message: 'Enter a name'
 
         },
         {
@@ -51,26 +52,28 @@ function employeeDetails(){
             message: 'Please select an employee role',
             choices: ['Engineer', 'Intern', 'Manager']
         }
-    ]).then(employeeData=> {
-        if(employeeData.role =='Engineer'){
-           roleEngineer();
+    ]).then(data=> {
+        
+        if(data.role =='Engineer'){
+           engineer();
 
         }
-        if(employeeData.role =='Intern'){
-            roleIntern();
+        if(data.role =='Intern'){
+            intern();
             
 
         }
-        if(employeeData.role =='Manager'){
-            roleManager();
+        if(data.role =='Manager'){
+            manager();
             
 
         } 
     });
+    console.log(data);
 
 }
 
-function roleEngineer(){
+function engineer(){
     inquirer.prompt([
         {
             name: 'github',
@@ -81,9 +84,9 @@ function roleEngineer(){
             name: 'continue',
             message: 'Do you wish to enter another employee?'
         }
-    ]).then(engineerData=>{
-        if(engineerData.continue){
-            return employeeDetails();
+    ]).then(data=>{
+        if(data.continue){
+            employee();
         }
         console.log('Thank you for using the Team Profile Generator');
         
@@ -91,7 +94,7 @@ function roleEngineer(){
   
 
 }
-function roleIntern(){
+function intern(){
     inquirer.prompt([
         {
             name: 'school',
@@ -102,15 +105,16 @@ function roleIntern(){
             name: 'continue',
             message: 'Do you wish to enter another employee?'
         }
-    ]).then(internData=>{
-        if(internData.continue){
-            return employeeDetails();
+    ]).then(data=>{
+        if(data.continue){
+            employee();
         }
         console.log('Thank you for using the Team Profile Generator');
         
+        
     })
 }
-function roleManager(){
+function manager(){
     inquirer.prompt([
         {
             name: 'officeNumber',
@@ -121,12 +125,13 @@ function roleManager(){
             name: 'continue',
             message: 'Do you wish to enter another employee?'
         }
-    ]).then(managerData=>{
-        if(managerData.continue){
-            return employeeDetails();
+    ]).then(data=>{
+        if(data.continue){
+            employee();
         }
         console.log('Thank you for using the Team Profile Generator');     
-
+        
+        
     })
 }
 
