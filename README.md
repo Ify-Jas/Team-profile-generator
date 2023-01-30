@@ -27,6 +27,8 @@
   ## Usage
   This terminal app is used to generated and HTML file for team members. See sample of a generated HTML page below;
 
+  <img src='assets/image/screenshot.png' alt='An image of a generates Team profile'>
+
 
 
   ## License
